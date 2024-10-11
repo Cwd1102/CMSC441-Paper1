@@ -10,9 +10,11 @@ def TowerOfHanoi(n, tower1, tower3, tower2):
     output = "Move disk " + str(n) + " from rod " + str(tower1) + " to rod " + str(tower3) +"\n"
     TowerOfHanoi(n-1, tower2, tower3, tower1)
 
-for i in range(1, 22):
+runtime = A[3,6,9,13,16,19,22,23]
+
+for i in range(len(runtime)):
     start=time.time()
-    TowerOfHanoi(i, 'A', 'C', 'B')
+    TowerOfHanoi(runtime[i], 'A', 'C', 'B')
     end=time.time()
     File.write("Time took " + str(end-start) + " Seconds\n")
     print("Time took ", end-start, " Seconds :3")
