@@ -10,7 +10,6 @@ def TowerOfHanoi(n, tower1, tower3, tower2):
     output = "Move disk " + str(n) + " from rod " + str(tower1) + " to rod " + str(tower3) +"\n"
     TowerOfHanoi(n-1, tower2, tower3, tower1)
 
-
 for i in range(1, 22):
     start=time.time()
     TowerOfHanoi(i, 'A', 'C', 'B')
