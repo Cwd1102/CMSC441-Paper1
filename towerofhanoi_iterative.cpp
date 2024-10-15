@@ -5,41 +5,41 @@
 #include <stack>
 using namespace std;
  
-char rod[]={'S', 'A', 'D'};
-vector<stack<int>> stacks(3); // 3 stacks for 3 rods
+char stacks[]={'S', 'A', 'D'};
+vector<stack<int>> pile(3); // 3 pile for 3 stackss
  
-void moveDisk(int a, int b)
+void move(int a, int b)
 {
-    if (stacks[b].empty() || (!stacks[a].empty() && stacks[a].top() < stacks[b].top()))
+    if (pile[b].empty() || (!pile[a].empty() && pile[a].top() < pile[b].top()))
     {
-        cout << "Move disk " << stacks[a].top() << " from rod " << rod[a] << " to rod " << rod[b] << "\n";
-        stacks[b].push(stacks[a].top());
-        stacks[a].pop();
+        cout << "Move disk " << pile[a].top() << " from stacks " << stacks[a] << " to stacks " << stacks[b] << "\n";
+        pile[b].push(pile[a].top());
+        pile[a].pop();
     }
     else
-        moveDisk(b, a);
+        move(b, a);
 }
  
 void towerOfHanoi(int n)
 {
-    cout << "Tower of Hanoi for " << n << " disks:\n";
+    cout << n << " disks:" << endl;
  
-    int src = 0, aux = 1, dest = 2;
+    int tower1 = 0, tower3 = 1, tower2 = 2;
     for (int i = n; i > 0; i--)
-        stacks[src].push(i);
+        pile[tower1].push(i);
  
-    int totalMoves = (1 << n) - 1;
+    int total = (1 << n) - 1;
     if (n % 2 == 0)
-        swap(aux, dest);
+        swap(tower3, tower2);
  
-    for (int i = 1; i <= totalMoves; i++)
+    for (int i = 1; i <= total; i++)
     {
         if (i % 3 == 0)
-            moveDisk(aux, dest);
+            move(tower3, tower2);
         else if (i % 3 == 1)
-            moveDisk(src, dest);
+            move(tower1, tower2);
         else
-            moveDisk(src, aux);
+            move(tower1, tower3);
     }
 }
 
@@ -52,7 +52,7 @@ int main(){
     if (myfile.is_open()) {
         cout << "File is open" << endl;
             auto start = chrono::steady_clock::now();
-            towerOfHanoi(26);
+            towerOfHanoi(28);
             cout << endl;
             auto end = chrono::steady_clock::now();
             float time = chrono::duration_cast<chrono::milliseconds>(end - start).count();
