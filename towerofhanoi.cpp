@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <vector>
 using namespace std;
 
 // Recursive function to solve Tower of Hanoi puzzle
@@ -21,10 +22,12 @@ void towerofhanoi(int n, char tower1, char tower3, char tower2) {
 // Driver code
 int main() {
     // Number of disks
-    int input[] = {10,13,15,19,20,23,25,26};
+    int counter = 0;
+    int input[] = {10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26};
+    vector<float> time;
         
         //loops through the input array
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < sizeof(input)/sizeof(input[0]); i++) {
             //start the clock
             auto start = chrono::steady_clock::now();
             cout << "For " << input[i] << " disks:" << endl;
@@ -36,9 +39,16 @@ int main() {
             auto end = chrono::steady_clock::now();
             //calculate the time
             //chrono::duration_cast is used to convert the time into milliseconds
-            float time = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-            cout << "For " << input[i] << " disks: " << time << " miliseconds" << endl;
+            float timeTaken = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+            time.push_back(timeTaken);
     }
+
+    for (int x : time){
+        
+        cout << "Time taken for " << input[counter] << " disks: " << x << " milliseconds" << endl;
+        counter++;
+    }
+    
     return 0;
 }
 

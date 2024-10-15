@@ -1,15 +1,13 @@
 #include <iostream>
 #include <chrono>
-#include <fstream>
 #include <vector>
 #include <stack>
 using namespace std;
  
 char stacks[]={'S', 'A', 'D'};
 vector<stack<int>> pile(3); // 3 pile for 3 stackss
- 
-void move(int a, int b)
-{
+
+void move(int a, int b){
     if (pile[b].empty() || (!pile[a].empty() && pile[a].top() < pile[b].top()))
     {
         cout << "Move disk " << pile[a].top() << " from stacks " << stacks[a] << " to stacks " << stacks[b] << "\n";
@@ -44,24 +42,27 @@ void towerOfHanoi(int n)
 }
 
 int main(){
-    ofstream myfile;
-    int input[] = {3,6,9,13,15,19,20,23,25,26};
+    int counter = 0;
+    vector<float> time;
+    int input[] = {10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26};
 
-    myfile.open("output.txt");
+        for (int i = 0; i < sizeof(input)/sizeof(input[0]); i++){
 
-    if (myfile.is_open()) {
-        cout << "File is open" << endl;
             auto start = chrono::steady_clock::now();
-            towerOfHanoi(28);
-            cout << endl;
+            towerOfHanoi(input[i]);
+            pile.clear();
+            pile.resize(3);
             auto end = chrono::steady_clock::now();
-            float time = chrono::duration_cast<chrono::milliseconds>(end - start).count();
-            myfile << time << " miliseconds" << endl;
-    myfile.close();
+            float timeTaken = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+            time.push_back(timeTaken);
+        }
+
+         for (int x : time){
+            
+            cout << "Time taken for " << input[counter] << " disks: " << x << " milliseconds" << endl;
+            counter++;
+         }
+
     return 0;
-    }
-    else {
-        cout << "File is not open" << endl;
-    }
 
 }
